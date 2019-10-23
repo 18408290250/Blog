@@ -121,3 +121,42 @@ collect 三参数：
 
 
 
+实际例子：
+
+```
+  List<Article> list = IArticle.getArticle();
+
+//        jsonArray = new JSONArray();
+//        list.forEach(this::convertJsonArr);
+//        list.stream().filter(Objects::nonNull).forEach(this::convertJsonArr);
+
+  jsonArray =  list.stream().parallel().filter(Objects::nonNull)
+                .collect(JSONArray::new,(arr,article)-> arr.put(convertJSONObj(article)),JSONArray::put);
+                
+  
+  
+    public String convertJsonArr(Article x){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id",x.getId());
+        jsonObject.put("title",x.getTitle());
+        jsonObject.put("name",x.getAuthor());
+        jsonObject.put("published",x.getPublished());
+        jsonObject.put("tag",x.getTag());
+        jsonObject.put("info",x.getInfo());
+        jsonArray.put(jsonObject);
+        return jsonArray.toString();
+    }
+
+    public  JSONObject convertJSONObj(Article x){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id",x.getId());
+        jsonObject.put("title",x.getTitle());
+        jsonObject.put("name",x.getAuthor());
+        jsonObject.put("published",x.getPublished());
+        jsonObject.put("tag",x.getTag());
+        jsonObject.put("info",x.getInfo());
+        return jsonObject;
+    }
+           
+```
+
