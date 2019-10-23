@@ -4564,6 +4564,8 @@ redisson目前是官方唯一推荐的java版的分布式锁,**Redisson 已经�
 
    注：org.redisson.config.Config
    
+   
+   
    ```
    // 1. 配置文件
    Config config = new Config();
@@ -4583,9 +4585,9 @@ redisson目前是官方唯一推荐的java版的分布式锁,**Redisson 已经�
        Thread.sleep(10000);
    } catch (InterruptedException e) {
        e.printStackTrace();
-   } finally {
+} finally {
        lock.unlock();
-}
+   }
    ```
    
    
@@ -4603,6 +4605,8 @@ redisson目前是官方唯一推荐的java版的分布式锁,**Redisson 已经�
 1. 加锁
 
    RedissonLock -》  tryLockInnerAsync
+
+   
 
    ```
    Future<Long> tryLockInnerAsync(long leaseTime, TimeUnit unit, long threadId, RedisStrictCommand<T> command) {
@@ -4746,6 +4750,8 @@ org.springframework.integration.redis.util.RedisLockRegistry.RedisLock
    </dependency>
    ```
 
+   
+
 2. redis配置
 
    ```
@@ -4786,7 +4792,7 @@ org.springframework.integration.redis.util.RedisLockRegistry.RedisLock
 4. 像Lock一样使用
 
    ```
-public void testLock() throws InterruptedException {
+   public void testLock() throws InterruptedException {
            //通过feign 调用远程票的信息  http://localhost:8000/service5/hello
            String ticketInfo =  serviceTicket.getTiketInfo();
            Lock lock = redisLockRegistry.obtain("lock");
@@ -4806,9 +4812,9 @@ public void testLock() throws InterruptedException {
            }
        }
    ```
+
    
-   
-   
+
 
 ##### Spirng Integration如何实现分布式锁？
 
@@ -4846,6 +4852,8 @@ public void testLock() throws InterruptedException {
 
    首先从localRegistry中获取到锁，这里的锁是java开发包里面的ReentrantLock。首先把本地先锁住，然后再去远程obtainLock。每次sleep() 100毫秒直到获取到远程锁为止
 
+   
+
    ```
    # RedisLockRegistry    
    @Override
@@ -4880,6 +4888,8 @@ public void testLock() throws InterruptedException {
    **核心远程锁还是在RedisLock中，采用了redis事务＋watch的方式，watch和事务都是redis里面自带的**。
 
    **使用watch时候如果key的值发生了任何变化。那么exec()将不会执行**，那么如下代码返回的success就是false。从而来实现redis锁的功能   在哪里找到的 ？？
+
+   
 
    ```
    private boolean obtainLock() {
