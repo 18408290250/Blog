@@ -4304,6 +4304,8 @@ if（set（key，1，30，NX） == 1）{
 
 在加锁的时候把当前的线程ID当做value，并在删除之前验证key对应的value是不是自己线程的ID
 
+
+
 ```
 # 加锁：
 String threadId = Thread.currentThread().getId()
@@ -4591,8 +4593,10 @@ redisson目前是官方唯一推荐的java版的分布式锁,**Redisson 已经�
    ```
    
    
+   
+   可以查看Redisson提供的Config类里支持的参数，不支持添加里面没有的参数配置。除了yaml类型格式的配置，也支持json格式的配置文件，具体不在这里展开，详情可以参考[Redisson配置方法](https://github.com/redisson/redisson/wiki/2.-配置方法)
 
-可以查看Redisson提供的Config类里支持的参数，不支持添加里面没有的参数配置。除了yaml类型格式的配置，也支持json格式的配置文件，具体不在这里展开，详情可以参考[Redisson配置方法](https://github.com/redisson/redisson/wiki/2.-配置方法)
+
 
 ​	3.Use Redisson through spring bean with `RedissonClient` interface or `RedisTemplate`/`ReactiveRedisTemplate` objects
 
@@ -4645,7 +4649,8 @@ redisson目前是官方唯一推荐的java版的分布式锁,**Redisson 已经�
 
    简
    
-   
+
+
 
 
 
