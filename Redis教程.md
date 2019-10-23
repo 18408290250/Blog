@@ -2229,10 +2229,12 @@ spring-boot-starter-cache会进行缓存的自动化配置和识别，Spring Boo
    </dependency>
    ```
 
+   
+
 2. yml配置文件
 
    ```
-spring:
+   spring:
      cache:
        # spring cache 缓存类型为redis  也可以是其他的实现
        type: redis
@@ -2240,9 +2242,9 @@ spring:
          ## Entry expiration in milliseconds. By default the entries never expire.
          time-to-live: 60s  # 1d
    ```
+
    
-   
-   
+
 3. 启用缓存（@EnableCaching）
 
    需要使用启用缓存配置，否则出现注解不生效的情况
@@ -2334,8 +2336,12 @@ beforeInvocation属性
 ##### 配置RedisCacheManager
 
 - 解决redis保存数据乱码的问题
+
 - 解决从redis反序列化报错的问题
+
 - 增加失效时间
+
+  
 
 ```
  private Duration timeToLive = Duration.ofSeconds(60);
