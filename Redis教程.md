@@ -4569,28 +4569,32 @@ redisson目前是官方唯一推荐的java版的分布式锁,**Redisson 已经�
    
    
    ```
+   
    // 1. 配置文件
-   Config config = new Config();
-   config.useSingleServer()
-           .setAddress("redis://127.0.0.1:6379")
-           .setPassword(RedisConfig.PASSWORD)
-           .setDatabase(0);
+   	Config config = new Config();
+   	config.useSingleServer()
+           	.setAddress("redis://127.0.0.1:6379")
+           	.setPassword(RedisConfig.PASSWORD)
+           	.setDatabase(0);
            
    //2. 构造RedissonClient
-   RedissonClient redissonClient = Redisson.create(config);
+   	RedissonClient redissonClient = Redisson.create(config);
    
    //3. 设置锁定资源名称
-   RLock lock = redissonClient.getLock("redlock");
-   lock.lock();
-   try {
-       System.out.println("获取锁成功，实现业务逻辑");
-       Thread.sleep(10000);
-   } catch (InterruptedException e) {
-       e.printStackTrace();
-} finally {
-       lock.unlock();
-   }
+   	RLock lock = redissonClient.getLock("redlock");
+   	lock.lock();
+       try {
+           System.out.println("获取锁成功，实现业务逻辑");
+           Thread.sleep(10000);
+       } catch (InterruptedException e) {
+        e.printStackTrace();
+       } finally {
+           lock.unlock();
+       }
+   
    ```
+   
+   
    
    
    
