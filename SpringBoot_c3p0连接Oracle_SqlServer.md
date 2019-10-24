@@ -26,7 +26,7 @@
 2. 将ojdbc6.jar包添加到maven
 
    ```
-   mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0.1.0 -Dpackaging=jar -Dfile=ojdbc6.jar
+   mvn install:install-file -Dfile=F:\app\iou\product\11.2.0\dbhome_1\jdbc\lib\ojdbc6.jar   -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0.1.0 -Dpackaging=jar
    ```
 
    
