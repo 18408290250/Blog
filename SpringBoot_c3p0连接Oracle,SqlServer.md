@@ -23,11 +23,17 @@
 
    
 
-2. 将ojdbc6.jar包添加到maven
+2. 将ojdbc6.jar包添加到maven，（cmd命令窗口中输入）
 
    ```
-   mvn install:install-file -Dfile=F:\app\iou\product\11.2.0\dbhome_1\jdbc\lib\ojdbc6.jar   -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0.1.0 -Dpackaging=jar
+   mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0.1.0 -Dpackaging=jar -Dfile=ojdbc6.jar
    ```
+
+   
+
+   注意：-Dversion=11.2.0.1.0 版本信息，在 Oracle 中使用这条语句查看：select * from v$instance;
+
+   ![image-20191024151823443](images/1569812559029.png)
 
    
 
@@ -118,6 +124,8 @@ c3p0.oracle.testConnectionOnCheckout=false
 
 
 
+配置类：
+
 ```
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -194,7 +202,7 @@ public class DataSourceConfigTest {
 
         System.out.println(ios.getBean("sqlserverDataSource"));
         Connection conn = sqlserverDataSource.getConnection();
-        String addSql = "select * from PersonInfo where pid='xxx'";
+        String addSql = "select * from PersonInfo where pid='513723199608084940'";
         PreparedStatement pStat = conn.prepareStatement(addSql);
         ResultSet rs = pStat.executeQuery();
         System.out.println("===============sqlserver查询结果===========");
