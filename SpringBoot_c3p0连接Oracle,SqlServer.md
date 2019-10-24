@@ -53,6 +53,21 @@
 
 # Maven项目以jdbc的形式连接数据库
 
+## 1、pom依赖
+
+```
+<!-- oracle -->
+<dependency>
+	<groupId>com.oracle</groupId>
+	<artifactId>ojdbc6</artifactId>
+	<version>11.2.0.1.0</version>
+</dependency>
+```
+
+
+
+## 2、测试连接
+
 ```
 @Test
     public void  test(){
@@ -122,6 +137,61 @@
 
 # SpringBoot使用c3p0连接Oracle、sqlserver
 
+## 注意
+
+oracle依赖用最上面的形式添加进maven本地仓库
+
+
+
+sqlserver依赖直接引入maven reponsitory上面的依赖,运行报错：
+
+java.lang.ClassNotFoundException: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+```
+ <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/sqljdbc4 -->
+ <dependency>
+ 	<groupId>com.microsoft.sqlserver</groupId>
+ 	<artifactId>sqljdbc4</artifactId>
+ 	<version>4.0</version>
+ 	<scope>test</scope>
+ </dependency>
+```
+
+
+
+查看本地仓库后，依赖确实没有下载下来，原因是：sqljdbc是微软sql server的jdbc驱动，微软不允许以maven的方式直接下载该文件。
+
+具体其他解决办法可参考： https://www.cnblogs.com/kmsfan/p/7192199.html 
+
+
+
+**另一种推荐办法：还是跟oracle一样，直接去官方手动下载依赖。然后安装到本地仓库**
+
+从微软的官方网站下载jar包：http://www.microsoft.com/en-us/download/details.aspx?id=11774 
+
+下载jar包之后可以通过下面的maven命令将jar包安装到自己的本地仓库：
+
+```
+mvn install:install-file -Dfile=sqljdbc4-4.0.jar -DgroupId=com.microsoft.sqlserver -DartifactId=mssql-jdbc -Dversion=4.0 -Dpackaging=jar
+
+```
+
+
+
+安装成功之后就可以在pom中引用sqljdbc依赖了。
+
+```
+<dependency>
+	<groupId>com.microsoft.sqlserver</groupId>
+	<artifactId>mssql-jdbc</artifactId>
+	<scope>runtime</scope>
+</dependency>
+```
+
+
+
+
+
 ## 1、c3p0连接数据库依赖
 
 ```
@@ -132,12 +202,12 @@
 	<version>0.9.5.2</version>
 </dependency>
 
+
 <!-- sqlserver -->
 <dependency>
 	<groupId>com.microsoft.sqlserver</groupId>
-	<artifactId>sqljdbc4</artifactId>
-	<version>RELEASE</version>
-	<scope>compile</scope>
+	<artifactId>mssql-jdbc</artifactId>
+	<scope>runtime</scope>
 </dependency>
 
 <!-- oracle -->
