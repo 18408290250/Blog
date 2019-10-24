@@ -73,7 +73,7 @@
     public void  test(){
         String driver = "oracle.jdbc.OracleDriver";    //驱动标识符
         String url = "jdbc:oracle:thin:@localhost:1521:orcl"; //链接字符串
-        // url ="jdbc:oracle:thin:@10.0.30.64:1521:orcl";  // 连接远程的数据库可以这么写
+        // url ="jdbc:oracle:thin:@xxx:1521:orcl";  // 连接远程的数据库可以这么写
         String user = "SC";         //数据库的用户名
         String password = "SC";     //数据库的密码
         Connection con = null;
