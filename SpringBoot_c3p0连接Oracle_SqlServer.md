@@ -194,7 +194,7 @@ public class DataSourceConfigTest {
 
         System.out.println(ios.getBean("sqlserverDataSource"));
         Connection conn = sqlserverDataSource.getConnection();
-        String addSql = "select * from PersonInfo where pid='513723199608084940'";
+        String addSql = "select * from PersonInfo where pid='xxx'";
         PreparedStatement pStat = conn.prepareStatement(addSql);
         ResultSet rs = pStat.executeQuery();
         System.out.println("===============sqlserver查询结果===========");
