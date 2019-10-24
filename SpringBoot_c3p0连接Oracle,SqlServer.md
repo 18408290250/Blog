@@ -51,6 +51,75 @@
 
 
 
+# Maven项目以jdbc的形式连接数据库
+
+```
+@Test
+    public void  test(){
+        String driver = "oracle.jdbc.OracleDriver";    //驱动标识符
+        String url = "jdbc:oracle:thin:@localhost:1521:orcl"; //链接字符串
+        // url ="jdbc:oracle:thin:@10.0.30.64:1521:orcl";  // 连接远程的数据库可以这么写
+        String user = "SC";         //数据库的用户名
+        String password = "SC";     //数据库的密码
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+
+        try {
+            Class.forName(driver);
+            con = DriverManager.getConnection(url,user, password);
+            String sql = "select * from dual";
+            pstm =con.prepareStatement(sql);
+            rs = pstm.executeQuery();
+            while(rs.next()) {
+                String id = rs.getString(1);
+                System.out.println(id);
+            }
+
+        } catch(ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if(rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // 关闭执行通道
+            if(pstm !=null) {
+                try {
+                    pstm.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // 关闭连接通道
+            try {
+                if(con != null &&(!con.isClosed())) {
+                    try {
+                        con.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+```
+
+
+
+
+
 # SpringBoot使用c3p0连接Oracle、sqlserver
 
 ## 1、c3p0连接数据库依赖
@@ -136,7 +205,7 @@ import org.springframework.context.annotation.PropertySource;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource("spring-boot-c3p0.properties")
+@PropertySource("classpath:spring-boot-c3p0.properties")
 public class DataSourceConfig {
 
     @Bean(name = "sqlserverDataSource")
@@ -245,7 +314,6 @@ public class DataSourceConfigTest {
         logger.warn("这是warn日志");
         logger.error("这是error日志");
     }
-    
 
 }
 ```
