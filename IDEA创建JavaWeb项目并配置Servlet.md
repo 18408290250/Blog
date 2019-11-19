@@ -1,4 +1,4 @@
-# Idea创建Java项目并配置servlet
+# IDEA创建JavaWeb项目并配置servlet
 
 
 
