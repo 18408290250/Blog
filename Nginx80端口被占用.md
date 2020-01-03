@@ -30,11 +30,11 @@
 
 netsh http show servicestate
 
-![1571730892611](images/1571730892611.png)
+![image-20191211215712907](images/image-20191211215712907.png)
 
 
 
-3.区任务管理器关掉对应的PID就好
+3.去任务管理器关掉对应的PID就好
 
 是 svchost.exe
 
@@ -43,3 +43,4 @@ netsh http show servicestate
 
 
 参考https://www.cnblogs.com/webenh/p/7714639.html  解决
+
